@@ -34,7 +34,7 @@ module Split
       end
 
       def default_options
-        { expires: @expires, path: '/' }
+        { expires: @expires, path: '/', domain: :all }
       end
 
       def hash
