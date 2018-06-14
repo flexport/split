@@ -8,6 +8,10 @@
 
 > 📈 The Rack Based A/B testing framework http://libraries.io/rubygems/split
 
+##
+This is a Flexport fork of Split 3.2.0 (a split off of split, if you will) that shares a single cookie between different subdomains for a user when using the cookie adapter for experiment persistence.
+
+##
 Split is a rack based A/B testing framework designed to work with Rails, Sinatra or any other rack based app.
 
 Split is heavily inspired by the [Abingo](https://github.com/ryanb/abingo) and [Vanity](https://github.com/assaf/vanity) Rails A/B testing plugins and [Resque](https://github.com/resque/resque) in its use of Redis.

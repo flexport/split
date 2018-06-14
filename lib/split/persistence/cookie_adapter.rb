@@ -33,8 +33,25 @@ module Split
         @response.set_cookie :split.to_s, default_options.merge(value: JSON.generate(value))
       end
 
+      # Taken from Rails ActionDispatch::Cookies
+      # https://github.com/rails/rails/blob/91ae6531976d0d2e7690bde0c1d5e6cc651f2578/actionpack/lib/action_dispatch/middleware/cookies.rb#L373
+      def domain_from_host
+        domain_regexp = /[^.]*\.([^.]*|..\...|...\...)$/
+        host = @request.host
+        domain = if (host !~ /^[\d.]+$/) && (host =~ domain_regexp)
+          ".#{$&}"
+        end
+        domain
+      end
+
       def default_options
-        { expires: @expires, path: '/', domain: :all }
+        options_base = { expires: @expires, path: '/' }
+        explicit_domain = domain_from_host
+        if explicit_domain.present?
+          options_base.merge({domain: explicit_domain})
+        else
+          options_base
+        end
       end
 
       def hash
